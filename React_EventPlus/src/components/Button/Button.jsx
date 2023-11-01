@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({textButton, type}) => {
+const Button = ( {textButton, type} ) => {
     return (
         <button type={type}> {textButton} </button>
     );
