@@ -1,24 +1,33 @@
 import React from 'react';
 import './Nav.css';
+import { Link } from 'react-router-dom';
 
 import logoMobile from "../../assets/images/images/logo-white.svg"
 import logoDesktop from "../../assets/images/images/logo-pink.svg"
 
+const Nav = ({ exibeNavbar, setExibeNavbar }) => {
 
-const Nav = () => {
+    console.log(`exibe o menu ${exibeNavbar}`);
+    
+
     return (
-        <nav className='navbar'>
-            <span className='navbar__close'>X</span>
+        <nav className={`navbar ${exibeNavbar ? "exibeNavbar" : ""}`}>
+            <span onClick={() => {setExibeNavbar(false)}} 
+            className='navbar__close'>X</span>
 
-            <a href="" className='eventlogo'>
-                <img className='eventlogo__logo-image' src={window.innerHeight >= 992 ? logoMobile : logoDesktop} alt="event plus logo" />
-            </a>
+            <Link to="/" className='eventlogo'>
+                <img className='eventlogo__logo-image' 
+                src={window.innerWidth >= 992 ? logoDesktop : logoMobile}
+                alt="event plus logo" />
+            </Link>
 
             <div className="navbar__items-box">
-                <a href="">Home</a>
-                <a href="">Tipos de eventos</a>
-                <a href="">Usuarios</a>
+                <Link className='navbar__item' to="/">Home</Link>
+                <Link className='navbar__item' to="/tipo-eventos" >Tipos de eventos</Link>
+                <Link className='navbar__item' to="/eventos">Eventos</Link>
+                <Link className='navbar__item' to="/login" >Login</Link>
             </div>
+
         </nav>
     );
 };
