@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer"
 
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/Login/LoginPage";
@@ -12,6 +13,7 @@ const Rotas = () => {
   return (
     <BrowserRouter>
       <Header />
+      
       <Routes>
         <Route element={<HomePage />} path={"/"} exact />
         <Route element={<LoginPage />} path={"/login"} exact />
@@ -19,6 +21,8 @@ const Rotas = () => {
         <Route element={<TipoEventos />} path={"/tipo-eventos"} exact />
         <Route element={<TestePage />} path={"/testes"} exact />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 };

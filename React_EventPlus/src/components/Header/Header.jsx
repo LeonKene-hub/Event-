@@ -8,7 +8,7 @@ import Nav from "../Nav/Nav";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 
 //imagens
-import menubar from "../../assets/images/images/menubar.png";
+import menubar from "../../assets/images/menubar.png";
 
 
 const Header = () => {

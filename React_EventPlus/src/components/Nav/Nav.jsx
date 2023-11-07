@@ -2,13 +2,10 @@ import React from 'react';
 import './Nav.css';
 import { Link } from 'react-router-dom';
 
-import logoMobile from "../../assets/images/images/logo-white.svg"
-import logoDesktop from "../../assets/images/images/logo-pink.svg"
+import logoMobile from "../../assets/images/logo-white.svg"
+import logoDesktop from "../../assets/images/logo-pink.svg"
 
 const Nav = ({ exibeNavbar, setExibeNavbar }) => {
-
-    console.log(`exibe o menu ${exibeNavbar}`);
-    
 
     return (
         <nav className={`navbar ${exibeNavbar ? "exibeNavbar" : ""}`}>
