@@ -7,7 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/Login/LoginPage";
 import EventosPage from "./pages/EventosPage/EventosPage";
 import TipoEventos from "./pages/TipoEventos/TipoEventos";
-import TestePage from "./pages/teste/TestePage";
+import TesteEffect from "./pages/Teste/TesteEffect";
 
 const Rotas = () => {
   return (
@@ -19,7 +19,7 @@ const Rotas = () => {
         <Route element={<LoginPage />} path={"/login"} exact />
         <Route element={<EventosPage />} path={"/eventos"} exact />
         <Route element={<TipoEventos />} path={"/tipo-eventos"} exact />
-        <Route element={<TestePage />} path={"/testes"} exact />
+        <Route element={<TesteEffect />} path={"/testeEffect"} exact />
       </Routes>
 
       <Footer />

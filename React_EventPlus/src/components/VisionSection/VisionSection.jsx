@@ -6,7 +6,7 @@ import Title from "../Title/Title"
 const VisionSection = () => {
     return (
         <section className='vision'>
-            <div className="vision-box">
+            <div className="vision__box">
                 <Title titleText="Visao" color='white' titleClass='vision__title'/>
 
                 <p className="vision__text">
