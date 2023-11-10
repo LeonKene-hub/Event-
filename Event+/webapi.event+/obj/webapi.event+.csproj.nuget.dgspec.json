@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\carlos.roque\\Desktop\\api_event\\Event+\\webapi.event+\\webapi.event+.csproj": {}
+    "C:\\Users\\56026708820\\Desktop\\Event-Plus\\Event+\\webapi.event+\\webapi.event+.csproj": {}
   },
   "projects": {
-    "C:\\Users\\carlos.roque\\Desktop\\api_event\\Event+\\webapi.event+\\webapi.event+.csproj": {
+    "C:\\Users\\56026708820\\Desktop\\Event-Plus\\Event+\\webapi.event+\\webapi.event+.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\carlos.roque\\Desktop\\api_event\\Event+\\webapi.event+\\webapi.event+.csproj",
+        "projectUniqueName": "C:\\Users\\56026708820\\Desktop\\Event-Plus\\Event+\\webapi.event+\\webapi.event+.csproj",
         "projectName": "webapi.event+",
-        "projectPath": "C:\\Users\\carlos.roque\\Desktop\\api_event\\Event+\\webapi.event+\\webapi.event+.csproj",
-        "packagesPath": "C:\\Users\\carlos.roque\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\carlos.roque\\Desktop\\api_event\\Event+\\webapi.event+\\obj\\",
+        "projectPath": "C:\\Users\\56026708820\\Desktop\\Event-Plus\\Event+\\webapi.event+\\webapi.event+.csproj",
+        "packagesPath": "C:\\Users\\56026708820\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\56026708820\\Desktop\\Event-Plus\\Event+\\webapi.event+\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\carlos.roque\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\56026708820\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

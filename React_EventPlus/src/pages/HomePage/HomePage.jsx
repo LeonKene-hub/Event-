@@ -8,16 +8,16 @@ import ContactSection from "../../components/ContactSection/ContactSection";
 import Title from "../../components/Title/Title";
 import NextEvent from "../../components/NextEvent/NextEvent";
 import Container from "../../components/Container/Container";
-import axios from "axios";
+import api from "../../Services/Service";
+import { nextEventResource } from "../../Services/Service";
 
 const Home = () => {
   const [nextEvents, setNextEvents] = useState([]);
-  const urlLocal = "https://localhost:7118/api";
 
   useEffect(() => {
     async function getNextEvents() {
       try {
-        const promise = await axios.get(`${urlLocal}/Evento/ListarProximos`);
+        const promise = await api.get(`${nextEventResource}`);
         const dados = await promise.data;
         console.log(dados);
 
@@ -44,11 +44,11 @@ const Home = () => {
               nextEvents.map((e) => {
                 return(                
                 <NextEvent 
-                  key={e.id}
-                  title={e.title}
-                  description={e.Descrition}
-                  eventDate={e.eventData}
-                  idEvent={e.id}
+                  key={e.idEvento}
+                  title={e.nomeEvento}
+                  description={e.descricao}
+                  eventDate={e.dataEvento}
+                  idEvent={e.idEvento}
                 />);
 
               })
