@@ -6,7 +6,7 @@ import Footer from "./components/Footer/Footer"
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/Login/LoginPage";
 import EventosPage from "./pages/EventosPage/EventosPage";
-import TipoEventos from "./pages/TipoEventos/TipoEventos";
+import TipoEventos from "./pages/TiposEventoPage/TiposEventoPage";
 import TesteEffect from "./pages/Teste/TesteEffect";
 
 const Rotas = () => {

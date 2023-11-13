@@ -1,6 +1,8 @@
 import React from 'react';
-import 'ImageIllustrator.css'
-import tipoEventoImage from "../../assets/images/tipo-evento.svg"
+import './ImageIllustrator.css'
+import tipoEventoImage from "../../assets/images/tipo-evento.svg";
+import eventoImage from "../../assets/images/evento.svg";
+import defaultImage from "../../assets/images/default-image.jpeg";
 
 const ImageIllustrator = ( {altText, imageName, addicionalClass} ) => {
 
@@ -10,8 +12,13 @@ const ImageIllustrator = ( {altText, imageName, addicionalClass} ) => {
         case "tipo-evento":
             imageResource = tipoEventoImage
             break;
-    
+
+        case "evento":
+            imageResource = eventoImage
+            break;
+            
         default:
+            imageResource = defaultImage
             break;
     }
     return (
