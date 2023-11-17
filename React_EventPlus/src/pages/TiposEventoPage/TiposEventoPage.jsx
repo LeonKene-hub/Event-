@@ -21,7 +21,6 @@ const TiposEventoPage = () => {
       try {
         const retorno = await api.get(eventTypeResource);
         setTipoEventos(retorno.data);
-        console.log(retorno.data);
       } catch (error) {
         console.log(`Deu ruim, erro: ${error}`);
       }
@@ -49,7 +48,6 @@ const TiposEventoPage = () => {
       //atualiza
       const buscaEventos = await api.get(eventTypeResource);
       setTipoEventos(buscaEventos.data);
-      
     } catch (error) {
       alert("Deu ruim no submit");
     }
@@ -75,23 +73,7 @@ const TiposEventoPage = () => {
       alert(`Deu ruim no delete ${error}`);
     }
   }
-
-  //****************** EDICAO DE DADOS *********************/
-  //realiza o update do tipo na api
-  function handleUpdate() {
-    alert("update");
-  }
-
-  //mostra o formulario de edicao
-  function showUpdateForm(idElement) {
-    setFrmEdit(true);
-  }
-
-  //cancela a tela/acao de edicao
-  function editActionAbort() {
-    setFrmEdit(false);
-  }
-
+  
   function notifyDeleted() {
     setNotifyUser({
       titleNote: "Sucesso",
@@ -100,6 +82,31 @@ const TiposEventoPage = () => {
       imgAlt: "Imagem de ilutracao",
       showMessage: true,
     });
+  }
+  //****************** EDICAO DE DADOS *********************/
+
+  //realiza o update do tipo na api
+  function handleUpdate() {
+  }
+  
+  //mostra o formulario de edicao
+  async function showUpdateForm(idElement) {
+    setFrmEdit(true);
+
+    try {
+      const dados = await api.get(`${eventTypeResource}/${idElement}`);
+
+      let tituloEvento = dados.data.titulo
+      setTitulo(tituloEvento);
+    } catch (error) {
+      alert(error)
+    }
+  }
+  
+  //cancela a tela/acao de edicao
+  function editActionAbort() {
+    setFrmEdit(false);
+    setTitulo("");
   }
 
   return (
@@ -153,26 +160,30 @@ const TiposEventoPage = () => {
                       id="editar"
                       placeholder={"Novo nome"}
                       name="titulo"
+                      value={titulo}
                       type="text"
                       required="required"
                     />
 
-                    <Button
-                      textButton={"Atualizar"}
-                      id={"Atualizar"}
-                      name={"atualizar"}
-                      type="submit"
-                      manipulationFuntion={handleUpdate}
-                      additionalClass={""}
-                    />
+                    <div className="buttons-editbox">
+                      <Button
+                        textButton={"Atualizar"}
+                        id={"Atualizar"}
+                        name={"atualizar"}
+                        type="submit"
+                        manipulationFuntion={handleUpdate}
+                        additionalClass="button-component--middle"
+                      />
 
-                    <Button
-                      id={"cancelar"}
-                      textButton={"Cancelar"}
-                      name={"cancelar"}
-                      type="submit"
-                      manipulationFuntion={editActionAbort}
-                    />
+                      <Button
+                        id={"cancelar"}
+                        textButton={"Cancelar"}
+                        name={"cancelar"}
+                        type="submit"
+                        manipulationFuntion={editActionAbort}
+                        additionalClass="button-component--middle"
+                      />
+                    </div>
                   </>
                 )}
               </form>

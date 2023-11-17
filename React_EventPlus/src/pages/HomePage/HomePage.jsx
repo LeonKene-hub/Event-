@@ -19,8 +19,6 @@ const Home = () => {
       try {
         const promise = await api.get(`${nextEventResource}`);
         const dados = await promise.data;
-        console.log(dados);
-
         setNextEvents(dados);
 
       } catch (error) {
