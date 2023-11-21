@@ -5,6 +5,7 @@ import MainContent from "../../components/Main/MainContent";
 import Container from "../../components/Container/Container";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import Notification from "../../components/Notification/Notification";
+import Spinner from "../../components/Spinner/Spinner";
 import { Button, Input } from "../../components/FormComponents/FormComponents";
 import api, { eventTypeResource } from "../../Services/Service";
 import TableTp from "./TableTP/TableTp";
@@ -14,16 +15,23 @@ const TiposEventoPage = () => {
   const [titulo, setTitulo] = useState("");
   const [tipoEventos, setTipoEventos] = useState([]);
   const [notifyUser, setNotifyUser] = useState();
+  const [showSpinner, setShowSpinner] = useState(false); //spinner loading
+  const [idTipoEvento, setIdTipoEvento] = useState(null);
 
   //****************** PONTE DE DADOS *********************/
   useEffect(() => {
     async function loadEventsType() {
+      setShowSpinner(true);
+
       try {
         const retorno = await api.get(eventTypeResource);
         setTipoEventos(retorno.data);
+        
       } catch (error) {
         console.log(`Deu ruim, erro: ${error}`);
       }
+
+      setShowSpinner(false);
     }
     //chama a funcao/api no carregamento da pagina/componente com valor deentro carrega quano valor alterado
     loadEventsType();
@@ -35,7 +43,15 @@ const TiposEventoPage = () => {
     e.preventDefault();
 
     if (titulo.trim().length < 3) {
-      alert("O titulo deve ter pelo menos 3 caracteres");
+      setNotifyUser({
+        titleNote: "Aviso",
+        textNote: "Necessario 3 caracteres ao menos.",
+        imgIcon: "warning",
+        imgAlt: "Imagem de ilustração de aviso. Mulher dando um chute em um ponto de esclamação",
+        showMessage: true,
+      });
+
+      setTitulo("");
       return;
     }
 
@@ -48,8 +64,24 @@ const TiposEventoPage = () => {
       //atualiza
       const buscaEventos = await api.get(eventTypeResource);
       setTipoEventos(buscaEventos.data);
+
+      setNotifyUser({
+        titleNote: "Sucesso",
+        textNote: "Evento cadastrado com sucesso.",
+        imgIcon: "success",
+        imgAlt: "Imagem de ilutracao. Mulher em frente ao simbolo de sucesso",
+        showMessage: true,
+      });
+
     } catch (error) {
-      alert("Deu ruim no submit");
+
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: "Ocorreu um erro na API, verifique sua conexão com a internet.",
+        imgIcon: "danger",
+        imgAlt: "Imagem de ilutracao",
+        showMessage: true,
+    });
     }
   }
 
@@ -86,7 +118,44 @@ const TiposEventoPage = () => {
   //****************** EDICAO DE DADOS *********************/
 
   //realiza o update do tipo na api
-  function handleUpdate() {
+  async function handleUpdate(e) {  
+    e.preventDefault();
+
+    //verifica se tem 3 caracteres
+    if (titulo.trim().length < 3) {
+      setNotifyUser({
+        titleNote: "Aviso",
+        textNote: "Necessario 3 caracteres ao menos.",
+        imgIcon: "warning",
+        imgAlt: "Imagem de ilustração de aviso. Mulher dando um chute em um ponto de esclamação",
+        showMessage: true,
+      });
+      return;
+    }
+    
+    try {
+      const atual = await api.put(`${eventTypeResource}/${idTipoEvento}`, {
+        titulo: titulo
+      });
+
+      //notifica
+      setNotifyUser({
+        titleNote: "Sucesso",
+        textNote: "Tipo evento editado com sucesso!",
+        imgIcon: "success",
+        imgAlt: "Imagem de sucesso",
+        showMessage: true,
+      });
+
+      //atualiza a tela
+      const buscaEventos = await api.get(eventTypeResource);
+      setTipoEventos(buscaEventos.data);
+      setFrmEdit(false);
+      setTitulo("");
+
+    } catch (error) {
+      alert(error);
+    }
   }
   
   //mostra o formulario de edicao
@@ -97,6 +166,7 @@ const TiposEventoPage = () => {
       const dados = await api.get(`${eventTypeResource}/${idElement}`);
 
       let tituloEvento = dados.data.titulo
+      setIdTipoEvento(dados.data.idTipoEvento);
       setTitulo(tituloEvento);
     } catch (error) {
       alert(error)
@@ -107,10 +177,12 @@ const TiposEventoPage = () => {
   function editActionAbort() {
     setFrmEdit(false);
     setTitulo("");
+    setIdTipoEvento(null);
   }
 
   return (
     <>
+      {showSpinner ? <Spinner /> : null}
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
 
       <MainContent>
@@ -163,6 +235,9 @@ const TiposEventoPage = () => {
                       value={titulo}
                       type="text"
                       required="required"
+                      manipulationFuntion={(e) =>{
+                        setTitulo(e.target.value)
+                      }}
                     />
 
                     <div className="buttons-editbox">
