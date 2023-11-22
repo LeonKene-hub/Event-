@@ -11,6 +11,15 @@
     /* border: 1px solid red; */
 }
 
+/* lista de Eventos */
+.lista-eventos-section {
+    background-color: var(--color-red);
+    width: 100%;
+    padding-bottom: 50px;
+    overflow: auto;
+    /* height: 432px; */
+}
+
 .fevento {
     width: 374px;
     height: 255px;
