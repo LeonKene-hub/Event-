@@ -148,8 +148,8 @@ const TiposEventoPage = () => {
       });
 
       //atualiza a tela
-      const buscaEventos = await api.get(eventTypeResource);
-      setTipoEventos(buscaEventos.data);
+      const buscatipos = await api.get(eventTypeResource);
+      setTipoEventos(buscatipos.data);
       setFrmEdit(false);
       setTitulo("");
 
