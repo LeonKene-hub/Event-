@@ -63,7 +63,7 @@ export const Select = ( {
     options,
     manipulationFuntion,
     additionalClass = "",
-    defaultValue
+    value
     
 } ) => {
     return(
@@ -73,9 +73,9 @@ export const Select = ( {
             required={required ? "required" : ""}
             className={`input-component ${additionalClass}`}
             onChange={manipulationFuntion}
-            value={defaultValue}
+            value={value}
         >
-            <option value="">Selecione</option>
+            <option>Selecione</option>
 
             {options.map((o) => {
                 return(
