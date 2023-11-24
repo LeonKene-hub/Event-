@@ -109,7 +109,7 @@ const TiposEventoPage = () => {
   function notifyDeleted() {
     setNotifyUser({
       titleNote: "Sucesso",
-      textNote: "Evento excluido com sucesso",
+      textNote: "Tipo evento excluido com sucesso",
       imgIcon: "success",
       imgAlt: "Imagem de ilutracao",
       showMessage: true,

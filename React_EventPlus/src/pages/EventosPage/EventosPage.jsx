@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Container from "../../components/Container/Container";
+import {Button, Input, Select} from "../../components/FormComponents/FormComponents";
+import api, { eventsResource, eventTypeResource } from "../../Services/Service";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
-import {
-  Button,
-  Input,
-  Select,
-  Label,
-} from "../../components/FormComponents/FormComponents";
+import Container from "../../components/Container/Container";
 import MainContent from "../../components/Main/MainContent";
 import Title from "../../components/Title/Title";
 import TableEvent from "./TableEv/TableEvent";
-import api, { eventsResource, eventTypeResource } from "../../Services/Service";
 import "./EventosPage.css";
+import Notification from "../../components/Notification/Notification";
 
 const EventosPage = () => {
   //dados completos
@@ -28,6 +24,7 @@ const EventosPage = () => {
 
   //forma de formulario
   const [frmEdit, setFrmEdit] = useState(false);
+  const [notifyUser, setNotifyUser] = useState();
 
   //****************************Ponte de dados eventos****************************/
   useEffect(() => {
@@ -73,10 +70,20 @@ const EventosPage = () => {
     try {
       const deletarEvento = await api.delete(`${eventsResource}/${idElement}`);
       if (deletarEvento.status === 204) {
+
         //atualiza pagina apos acao
         const atualizaPagina = await api.get(eventsResource);
         setEventos(atualizaPagina.data);
       }
+
+      setNotifyUser({
+        titleNote: "Sucesso",
+        textNote: "Evento excluido com sucesso",
+        imgIcon: "success",
+        imgAlt: "Imagem de ilutracao",
+        showMessage: true,
+      });
+
     } catch (error) {
       alert(`Deu ruim no metodo de delete: ${error}`);
     }
@@ -85,6 +92,19 @@ const EventosPage = () => {
   //Cadastra evento
   async function handleSubmit(e) {
     e.preventDefault();
+    if (nomeEvento.trim().length < 3) {
+      //notifica
+      setNotifyUser({
+        titleNote: "Aviso",
+        textNote: "Necessario 3 caracteres ao menos.",
+        imgIcon: "warning",
+        imgAlt: "Imagem de ilustração de aviso. Mulher dando um chute em um ponto de esclamação",
+        showMessage: true,
+      });
+
+      editActionAbort();
+      return;
+    }
 
     try {
       const dadosCadastro = {
@@ -94,10 +114,21 @@ const EventosPage = () => {
         dataEvento: dataEvento,
         idInstituicao: idInstituicao,
       };
-      console.log(dadosCadastro);
 
       const retorno = await api.post(eventsResource, dadosCadastro);
+
+      //notifica
+      setNotifyUser({
+        titleNote: "Sucesso",
+        textNote: "Tipo evento editado com sucesso!",
+        imgIcon: "success",
+        imgAlt: "Imagem de sucesso",
+        showMessage: true,
+      });
+
+      editActionAbort();
     } catch (error) {
+
       console.log(`Erro ao cadastrar:`);
       console.log(error);
     }
@@ -137,6 +168,19 @@ const EventosPage = () => {
   async function handleUpdate(e) {
     e.preventDefault();
 
+    if (nomeEvento.trim().length < 3) {
+      //notifica
+      setNotifyUser({
+        titleNote: "Aviso",
+        textNote: "Necessario 3 caracteres ao menos.",
+        imgIcon: "warning",
+        imgAlt: "Imagem de ilustração de aviso. Mulher dando um chute em um ponto de esclamação",
+        showMessage: true,
+      });
+      setNomeEvento("");
+      return;
+    }
+
     try {
       const atual = await api.put(`${eventsResource}/${idEvento}`, {
         nomeEvento: nomeEvento,
@@ -144,6 +188,14 @@ const EventosPage = () => {
         idTipoEvento: idTipoEvento,
         dataEvento: dataEvento,
         idInstituicao: idInstituicao,
+      });
+
+      setNotifyUser({
+        titleNote: "Sucesso",
+        textNote: "Evento editado com sucesso!",
+        imgIcon: "success",
+        imgAlt: "Imagem de sucesso",
+        showMessage: true,
       });
 
       //atualiza pagina apos acao
@@ -157,7 +209,10 @@ const EventosPage = () => {
   }
 
   return (
-    <MainContent>
+    <>
+      {<Notification {...notifyUser} setNotifyUser={setNotifyUser}/>}
+
+      <MainContent>
       <section className="cadastro-evento">
         <Container>
           <div className="cadastro-evento__box">
@@ -301,7 +356,8 @@ const EventosPage = () => {
           />
         </Container>
       </section>
-    </MainContent>
+      </MainContent>
+    </>
   );
 };
 
