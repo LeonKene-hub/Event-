@@ -2,7 +2,7 @@ import React from "react";
 import trashDelete from "../../assets/images/trash-delete-red.png";
 
 import { Button, Input } from "../FormComponents/FormComponents";
-import "./Modal.css";
+import "./Modal.css"
 
 const Modal = ({
   modalTitle = "Feedback",
@@ -43,8 +43,8 @@ const Modal = ({
         />
 
         <Button
-          buttonText="Comentar"
-          className="comentary__button"
+          textButton="Comentar"
+          additionalClass={"comentary__button"}
           onClick={fnNewCommentary}
         />
       </article>

@@ -56,29 +56,28 @@ export const Button = ( {
     );
 }
 
-export const Select = ( {
+export const Select = ({
     required,
     id,
     name,
-    options,
-    manipulationFuntion,
+    options = [],
+    manipulationFunction,
     additionalClass = "",
-    value
-    
-} ) => {
-    return(
+    defaultValue
+}) => {
+    return (
         <select 
             name={name} 
-            id={id} 
-            required={required ? "required" : ""}
+            id={id}
+            required={required}
             className={`input-component ${additionalClass}`}
-            onChange={manipulationFuntion}
-            value={value}
-        >
-            <option>Selecione</option>
+            onChange={manipulationFunction}
+            value={defaultValue}
 
-            {options.map((o) => {
-                return(
+        >
+            <option value="">Selecione</option>
+            {options.map((o) =>{
+                return (
                     <option key={Math.random()} value={o.value}>{o.text}</option>
                 );
             })}

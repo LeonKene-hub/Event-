@@ -1,6 +1,6 @@
 
 .illustrator-box {
-    display: none;
+    display: block;
 }
 
 @media screen and (min-width: 1200px) {

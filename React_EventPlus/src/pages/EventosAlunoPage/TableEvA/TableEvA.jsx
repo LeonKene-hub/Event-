@@ -2,7 +2,7 @@ import React from "react";
 import comentaryIcon from "../../../assets/images/comentary-icon.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
 import { dateFormatDbToView } from "../../../Utils/stringFuntion";
- import ToggleSwitch from "../../../components/Toggle/Toggle";
+import ToggleSwitch from "../../../components/Toggle/Toggle";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
@@ -39,21 +39,6 @@ const TableEvA = ({ dados, fnConnect = null, fnShowModal = null }) => {
               <td className="tbal-data__data tbal-data__data--big">
                 {e.nomeEvento}
               </td>
-              {/* <td
-                className="tbal-data__data tbal-data__data--big tbal-data__data--handover"
-                data-tooltip-id="description-tooltip"
-                data-tooltip-content={e.descricao}
-                data-tooltip-place="top"
-              >
-                {e.descricao.substr(0, 15)} ...
-                <Tooltip
-                  id="description-tooltip"
-                  className="custom-tootip"
-                />
-              </td> 
-              {/* <td className="tbal-data__data tbal-data__data--big">
-                {e.tiposEvento.titulo}
-              </td> */}
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
                 {/* {e.dataEvento} */}
                 {dateFormatDbToView(e.dataEvento)}
@@ -68,7 +53,16 @@ const TableEvA = ({ dados, fnConnect = null, fnShowModal = null }) => {
                   onClick={fnShowModal}
                 />
 
-                <ToggleSwitch manipulationFunction={fnConnect} />
+                <ToggleSwitch
+                  toggleActive={e.situacao}
+                  manipulationFunction={() => {
+                    fnConnect(
+                      e.idEvento, 
+                      e.situacao ? "unconnect" : "connect", 
+                      e.situacao ? e.idPresencaEvento : null
+                    );
+                  }}
+                />
               </td>
             </tr>
           );

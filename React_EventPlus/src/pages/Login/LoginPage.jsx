@@ -65,7 +65,7 @@ const LoginPage = () => {
                     <ImageIllustrator
                         imageName="login-img"
                         altText="Imagem de um homem em frente de uma porta de entrada"
-                        additionalClass="login-illustrator"
+                        addicionalClass={"login-illustrator"}
                     />
                 </div>
 

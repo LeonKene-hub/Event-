@@ -42,10 +42,17 @@
   }
   
   .modal__title {
+    display: flex;
+    justify-content: space-between;
     font-family: Poppins-SemiBold;
     font-size: 0.875rem;
     text-transform: uppercase;
   }
+
+  .modal__close {
+    cursor: pointer;
+  }
+  
   .comentary {
     display: flex;
     justify-content: space-between;
