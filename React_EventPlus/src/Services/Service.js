@@ -26,6 +26,16 @@ export const MyEventsResource = '/PresencaEvento/ListarMinhas'
 export const precencesEventResource = '/PresencaEvento'
 
 /**
+ * Rota para o recurso Buscar comentario sobre Evento
+ */
+export const myComentary = `/ComentariosEvento/BuscarPorIdUsuario`
+
+/**
+ * Rota para o recurso Buscar comentario sobre Evento
+ */
+export const Comentaries = `/ComentariosEvento`
+
+/**
  * Rota para o recurso de tipos de eventos
 */
 export const eventTypeResource = "/TiposEvento";

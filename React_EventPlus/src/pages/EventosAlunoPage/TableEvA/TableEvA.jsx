@@ -40,7 +40,6 @@ const TableEvA = ({ dados, fnConnect = null, fnShowModal = null }) => {
                 {e.nomeEvento}
               </td>
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
-                {/* {e.dataEvento} */}
                 {dateFormatDbToView(e.dataEvento)}
               </td>
 
@@ -50,7 +49,7 @@ const TableEvA = ({ dados, fnConnect = null, fnShowModal = null }) => {
                   idevento={e.idEvento}
                   src={comentaryIcon}
                   alt=""
-                  onClick={fnShowModal}
+                  onClick={()=> {fnShowModal(e.idEvento)}}
                 />
 
                 <ToggleSwitch
@@ -59,7 +58,7 @@ const TableEvA = ({ dados, fnConnect = null, fnShowModal = null }) => {
                     fnConnect(
                       e.idEvento, 
                       e.situacao ? "unconnect" : "connect", 
-                      e.situacao ? e.idPresencaEvento : null
+                      e.idPresencaEvento //parametro opcional
                     );
                   }}
                 />
