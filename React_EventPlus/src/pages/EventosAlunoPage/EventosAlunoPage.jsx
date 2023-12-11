@@ -11,7 +11,7 @@ import api, {
   MyEventsResource,
   precencesEventResource,
   myComentary,
-  Comentaries
+  Comentaries,
 } from "../../Services/Service";
 
 import "./EventosAlunoPage.css";
@@ -29,7 +29,7 @@ const EventosAlunoPage = () => {
   ];
 
   const [tipoEvento, setTipoEvento] = useState("1"); //código do tipo do Evento escolhido
-  const [comentario, setComentario] = useState("")
+  const [comentario, setComentario] = useState("");
 
   const [showSpinner, setShowSpinner] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -74,7 +74,7 @@ const EventosAlunoPage = () => {
               ...e.evento,
               situacao: e.situacao,
               idPresencaEvento: e.idPresencaEvento,
-            }); 
+            });
           });
 
           // console.log(arrEventos);
@@ -119,17 +119,15 @@ const EventosAlunoPage = () => {
   //   return "????";
   // }
 
-  
   async function handleConnect(eventId, whatTheFunction, presencaId = null) {
     if (whatTheFunction === "connect") {
-      
       try {
         const promise = await api.post(precencesEventResource, {
           situacao: true,
           IdUsuario: userData.userId,
           idEvento: eventId,
         });
-        
+
         if (promise.status === 201) {
           alert("Presenca confirmada, parabens");
         }
@@ -138,14 +136,14 @@ const EventosAlunoPage = () => {
         console.log(error);
       }
       return;
-      
     } else if (whatTheFunction === "unconnect") {
-      
       try {
-        const unconnected = await api.delete(`${precencesEventResource}/${presencaId}`);
-        
+        const unconnected = await api.delete(
+          `${precencesEventResource}/${presencaId}`
+        );
+
         if (unconnected.status === 204) {
-          alert("Deletado")
+          alert("Deletado");
         }
       } catch (error) {
         console.log("Erro no desconectar/deletar");
@@ -156,29 +154,39 @@ const EventosAlunoPage = () => {
 
   const showHideModal = (idEvent) => {
     setShowModal(showModal ? false : true);
-    setUserData({...userData, idEvento: idEvent});
+    setUserData({ ...userData, idEvento: idEvent });
   };
 
-
   async function loadMyComentary(idUsuario, idEvento) {
-    const comentary = await api.get(`${myComentary}?idUsuario=${idUsuario}&idEvento=${idEvento}`)
-    setComentario(comentary.data.descricao)
+    try {
+      const comentary = await api.get(
+      `${myComentary}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+    );
+    setComentario(comentary.data.descricao);
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
-  
+
   async function postMyComentary(idUsuario, idEvento, novoComentario) {
     try {
-      console.clear()
+      console.clear();
       const novoComentarary = await api.post(Comentaries, {
-      descricao: novoComentario, 
-      exibe: true,
-      idUsuario: idUsuario,
-      idEvento: idEvento
-    })
-    console.log(novoComentarary.status);
+        descricao: novoComentario,
+        exibe: true,
+        idUsuario: idUsuario,
+        idEvento: idEvento,
+      });
+      console.log(novoComentarary.status);
+
+      if (novoComentarary.status === 201) {
+        const promise = await api.get(`${myComentary}?idUsuario=${idUsuario}&idEvento=${idEvento}`);
+        console.log(promise.data);
+      }
     } catch (error) {
       console.log(error);
     }
-    
 
     console.log(idUsuario, idEvento, novoComentario);
   }
