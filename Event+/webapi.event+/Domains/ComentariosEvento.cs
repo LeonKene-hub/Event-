@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.event_.Domains
 {
     [Table("ComentariosEvento")]
+    [Index(nameof(IdComentarioEvento), IsUnique = true)]
     public class ComentariosEvento
     {
         [Key]

@@ -13,15 +13,18 @@ namespace webapi.event_.Repositories
             _context = new Event_Context();
         }
 
-        public ComentariosEvento BuscarPorId(Guid id)
+        public ComentariosEvento BuscarPorIdComentario(Guid id)
         {
             try
             {
                 return _context.ComentariosEvento
                     .Select(c => new ComentariosEvento
                     {
+                        IdComentarioEvento = c.IdComentarioEvento,
                         Descricao = c.Descricao,
                         Exibe = c.Exibe,
+                        IdUsuario = c.IdUsuario,
+                        IdEvento = c.IdEvento,
 
                         Usuario = new Usuario
                         {
@@ -46,6 +49,7 @@ namespace webapi.event_.Repositories
             try
             {
                 _context.ComentariosEvento.Add(comentarioEvento);
+                _context.SaveChanges();
             }
             catch (Exception)
             {
@@ -61,6 +65,7 @@ namespace webapi.event_.Repositories
 
                 if (comentarioEventoBuscado != null)
                 {
+                    
                     _context.ComentariosEvento.Remove(comentarioEventoBuscado);
                 }
 
@@ -80,8 +85,11 @@ namespace webapi.event_.Repositories
                 return _context.ComentariosEvento
                     .Select(c => new ComentariosEvento
                     {
+                        IdComentarioEvento = c.IdComentarioEvento,
                         Descricao = c.Descricao,
                         Exibe = c.Exibe,
+                        IdUsuario = c.IdUsuario,
+                        IdEvento = c.IdEvento,
 
                         Usuario = new Usuario
                         {
@@ -94,6 +102,70 @@ namespace webapi.event_.Repositories
                         }
 
                     }).ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ComentariosEvento BuscarPorIdUsuario(Guid idUsuario, Guid idEvento)
+        {
+            try
+            {
+                return _context.ComentariosEvento
+                    .Select(c => new ComentariosEvento
+                    {
+                        IdComentarioEvento = c.IdComentarioEvento,
+                        Descricao = c.Descricao,
+                        Exibe = c.Exibe,
+                        IdUsuario = c.IdUsuario,
+                        IdEvento = c.IdEvento,
+
+                        Usuario = new Usuario
+                        {
+                            Nome = c.Usuario!.Nome
+                        },
+
+                        Evento = new Evento
+                        {
+                            NomeEvento = c.Evento!.NomeEvento,
+                        }
+
+                    }).FirstOrDefault(c => c.IdUsuario == idUsuario && c.IdEvento == idEvento)!;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<ComentariosEvento> ListarSomenteExibe()
+        {
+
+            try
+            {
+                return _context.ComentariosEvento
+                    .Select(c => new ComentariosEvento
+                    {
+                        IdComentarioEvento = c.IdComentarioEvento,
+                        Descricao = c.Descricao,
+                        Exibe = c.Exibe,
+                        IdUsuario = c.IdUsuario,
+                        IdEvento = c.IdEvento,
+
+                        Usuario = new Usuario
+                        {
+                            Nome = c.Usuario!.Nome
+                        },
+
+                        Evento = new Evento
+                        {
+                            NomeEvento = c.Evento!.NomeEvento,
+                        }
+
+                    }).Where(c => c.Exibe == true).ToList();
             }
             catch (Exception)
             {

@@ -43,6 +43,9 @@ namespace webapi.event_.Migrations
 
                     b.HasKey("IdComentarioEvento");
 
+                    b.HasIndex("IdComentarioEvento")
+                        .IsUnique();
+
                     b.HasIndex("IdEvento");
 
                     b.HasIndex("IdUsuario");
