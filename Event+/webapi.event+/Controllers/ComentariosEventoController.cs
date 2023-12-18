@@ -118,12 +118,12 @@ namespace webapi.event_.Controllers
             }
         }
 
-        [HttpGet("ListarSomenteExibe")]
-        public IActionResult GetShow()
+        [HttpGet("ListarSomenteExibe{idEvento}")]
+        public IActionResult GetShow(Guid idEvento)
         {
             try
             {
-                return Ok(comentario.ListarSomenteExibe());
+                return Ok(comentario.ListarSomenteExibe(idEvento));
             }
             catch (Exception e)
             {
